@@ -3,7 +3,7 @@
 
 I wrote this tool, because BEC didn't work properly with DayZ SA (for me). To run EasyDayZ, you need the .NET Framework v4.6 installed. It was build with Microsoft Visual Studio Community 2017.
 
-**EasyDayZ is in a very early stage and there will be bugs, use it on your own risk. I do not take any responsibility for any damaged caused by EasyDayZ!**
+**EasyDayZ is in a very early stage and there will be bugs, use it at your own risk. I do not take any responsibility for any damaged caused by EasyDayZ!**
 
 ### Current features:
 - view all to your server conneted players
