@@ -120,6 +120,10 @@ Partial Class main
         Me.rtxt_log = New System.Windows.Forms.RichTextBox()
         Me.timer_reconnect = New System.Windows.Forms.Timer(Me.components)
         Me.chk_autoscroll = New System.Windows.Forms.CheckBox()
+        Me.grp_mods = New System.Windows.Forms.GroupBox()
+        Me.txt_mods = New System.Windows.Forms.TextBox()
+        Me.btn_save_startup_parameter = New System.Windows.Forms.Button()
+        Me.chk_dzsalmod = New System.Windows.Forms.CheckBox()
         Me.tab_commands.SuspendLayout()
         Me.tab_server.SuspendLayout()
         Me.grp_backup.SuspendLayout()
@@ -137,12 +141,13 @@ Partial Class main
         CType(Me.data_bans, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tab_players_history.SuspendLayout()
         CType(Me.data_player_history, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grp_mods.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 507)
+        Me.Label3.Location = New System.Drawing.Point(12, 527)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(45, 13)
         Me.Label3.TabIndex = 18
@@ -150,14 +155,14 @@ Partial Class main
         '
         'txt_commandline
         '
-        Me.txt_commandline.Location = New System.Drawing.Point(63, 504)
+        Me.txt_commandline.Location = New System.Drawing.Point(63, 524)
         Me.txt_commandline.Name = "txt_commandline"
         Me.txt_commandline.Size = New System.Drawing.Size(689, 20)
         Me.txt_commandline.TabIndex = 19
         '
         'btn_commandline_send
         '
-        Me.btn_commandline_send.Location = New System.Drawing.Point(758, 502)
+        Me.btn_commandline_send.Location = New System.Drawing.Point(758, 522)
         Me.btn_commandline_send.Name = "btn_commandline_send"
         Me.btn_commandline_send.Size = New System.Drawing.Size(75, 23)
         Me.btn_commandline_send.TabIndex = 20
@@ -175,11 +180,12 @@ Partial Class main
         Me.tab_commands.Location = New System.Drawing.Point(12, 12)
         Me.tab_commands.Name = "tab_commands"
         Me.tab_commands.SelectedIndex = 0
-        Me.tab_commands.Size = New System.Drawing.Size(944, 277)
+        Me.tab_commands.Size = New System.Drawing.Size(944, 293)
         Me.tab_commands.TabIndex = 21
         '
         'tab_server
         '
+        Me.tab_server.Controls.Add(Me.grp_mods)
         Me.tab_server.Controls.Add(Me.grp_backup)
         Me.tab_server.Controls.Add(Me.grp_watchdog)
         Me.tab_server.Controls.Add(Me.btn_save)
@@ -189,7 +195,7 @@ Partial Class main
         Me.tab_server.Location = New System.Drawing.Point(4, 22)
         Me.tab_server.Name = "tab_server"
         Me.tab_server.Padding = New System.Windows.Forms.Padding(3)
-        Me.tab_server.Size = New System.Drawing.Size(936, 251)
+        Me.tab_server.Size = New System.Drawing.Size(936, 267)
         Me.tab_server.TabIndex = 0
         Me.tab_server.Text = "Server"
         Me.tab_server.UseVisualStyleBackColor = True
@@ -280,6 +286,7 @@ Partial Class main
         Me.Button1.TabIndex = 37
         Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'grp_server_path
         '
@@ -1007,7 +1014,7 @@ Partial Class main
         '
         'rtxt_log
         '
-        Me.rtxt_log.Location = New System.Drawing.Point(12, 291)
+        Me.rtxt_log.Location = New System.Drawing.Point(12, 311)
         Me.rtxt_log.Name = "rtxt_log"
         Me.rtxt_log.Size = New System.Drawing.Size(944, 205)
         Me.rtxt_log.TabIndex = 22
@@ -1022,18 +1029,56 @@ Partial Class main
         Me.chk_autoscroll.AutoSize = True
         Me.chk_autoscroll.Checked = True
         Me.chk_autoscroll.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chk_autoscroll.Location = New System.Drawing.Point(839, 506)
+        Me.chk_autoscroll.Location = New System.Drawing.Point(839, 526)
         Me.chk_autoscroll.Name = "chk_autoscroll"
         Me.chk_autoscroll.Size = New System.Drawing.Size(117, 17)
         Me.chk_autoscroll.TabIndex = 23
         Me.chk_autoscroll.Text = "Automatic scroll log"
         Me.chk_autoscroll.UseVisualStyleBackColor = True
         '
+        'grp_mods
+        '
+        Me.grp_mods.Controls.Add(Me.chk_dzsalmod)
+        Me.grp_mods.Controls.Add(Me.btn_save_startup_parameter)
+        Me.grp_mods.Controls.Add(Me.txt_mods)
+        Me.grp_mods.Location = New System.Drawing.Point(9, 191)
+        Me.grp_mods.Name = "grp_mods"
+        Me.grp_mods.Size = New System.Drawing.Size(909, 69)
+        Me.grp_mods.TabIndex = 41
+        Me.grp_mods.TabStop = False
+        Me.grp_mods.Text = "Mods seperated by ; (Example: @mod1;@mod2;@mod3)"
+        '
+        'txt_mods
+        '
+        Me.txt_mods.Location = New System.Drawing.Point(6, 19)
+        Me.txt_mods.Name = "txt_mods"
+        Me.txt_mods.Size = New System.Drawing.Size(816, 20)
+        Me.txt_mods.TabIndex = 0
+        '
+        'btn_save_startup_parameter
+        '
+        Me.btn_save_startup_parameter.Location = New System.Drawing.Point(828, 17)
+        Me.btn_save_startup_parameter.Name = "btn_save_startup_parameter"
+        Me.btn_save_startup_parameter.Size = New System.Drawing.Size(75, 23)
+        Me.btn_save_startup_parameter.TabIndex = 1
+        Me.btn_save_startup_parameter.Text = "save"
+        Me.btn_save_startup_parameter.UseVisualStyleBackColor = True
+        '
+        'chk_dzsalmod
+        '
+        Me.chk_dzsalmod.AutoSize = True
+        Me.chk_dzsalmod.Location = New System.Drawing.Point(6, 45)
+        Me.chk_dzsalmod.Name = "chk_dzsalmod"
+        Me.chk_dzsalmod.Size = New System.Drawing.Size(307, 17)
+        Me.chk_dzsalmod.TabIndex = 2
+        Me.chk_dzsalmod.Text = "Use DZSALModServer.exe instead of DayZServer_x64.exe"
+        Me.chk_dzsalmod.UseVisualStyleBackColor = True
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(968, 537)
+        Me.ClientSize = New System.Drawing.Size(968, 555)
         Me.Controls.Add(Me.chk_autoscroll)
         Me.Controls.Add(Me.rtxt_log)
         Me.Controls.Add(Me.tab_commands)
@@ -1070,6 +1115,8 @@ Partial Class main
         CType(Me.data_bans, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tab_players_history.ResumeLayout(False)
         CType(Me.data_player_history, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grp_mods.ResumeLayout(False)
+        Me.grp_mods.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1170,4 +1217,8 @@ Partial Class main
     Friend WithEvents col_players_guid As DataGridViewTextBoxColumn
     Friend WithEvents col_players_ip As DataGridViewTextBoxColumn
     Friend WithEvents col_players_ping As DataGridViewTextBoxColumn
+    Friend WithEvents grp_mods As GroupBox
+    Friend WithEvents btn_save_startup_parameter As Button
+    Friend WithEvents txt_mods As TextBox
+    Friend WithEvents chk_dzsalmod As CheckBox
 End Class

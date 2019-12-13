@@ -15,11 +15,25 @@ Module help_methods
         Return check_process_is_running("DayZServer_x64")
     End Function
 
-    Public Sub start_server(ByVal path_server As String, ByVal path_battleye As String, ByVal port As String)
+    Public Sub start_server(ByVal path_server As String, ByVal path_battleye As String, ByVal port As String, ByVal mods_list As String)
         Dim battleye_arg As String = ""
+        Dim mods_arg As String = ""
         If Len(path_battleye) > 0 Then battleye_arg = " ""-BEpath=" & path_battleye & """"
+        If Len(mods_list) > 0 Then mods_arg = " ""-mod=" & Trim(mods_list) & """"
         'MsgBox(path_server & "\DayZServer_x64.exe " & """-config=" & path_server & "\serverDZ.cfg"" -port=" & port & " -dologs -adminlog -netlog -freezecheck" & battleye_arg)
-        Process.Start(path_server & "\DayZServer_x64.exe", """-config=" & path_server & "\serverDZ.cfg"" -port=" & port & " -dologs -adminlog -netlog -freezecheck" & battleye_arg)
+        main.DoLog("(Debug) Server-Args: " & """-config=" & path_server & "\serverDZ.cfg"" -port=" & port & " -dologs -adminlog -netlog -freezecheck" & battleye_arg & mods_arg)
+
+        Dim myprocess As ProcessStartInfo = New ProcessStartInfo
+        myprocess.WorkingDirectory = path_server
+        If main.chk_dzsalmod.Checked = False Then
+            myprocess.FileName = "DayZServer_x64.exe"
+            'Process.Start(path_server & "\DayZServer_x64.exe", """-config=" & path_server & "\serverDZ.cfg"" -port=" & port & " -dologs -adminlog -netlog -freezecheck" & battleye_arg & mods_arg)
+        Else
+            myprocess.FileName = "DZSALModServer.exe"
+            'Process.Start(path_server & "\DZSALModServer.exe", """-config=" & path_server & "\serverDZ.cfg"" -port=" & port & " -dologs -adminlog -netlog -freezecheck" & battleye_arg & mods_arg)
+        End If
+        myprocess.Arguments = """-config=" & path_server & "\serverDZ.cfg"" -port=" & port & " -dologs -adminlog -netlog -freezecheck" & battleye_arg & mods_arg
+        Process.Start(myprocess)
     End Sub
 
     Public Sub wait_for_server_to_shutdown()

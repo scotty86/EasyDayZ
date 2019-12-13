@@ -14,6 +14,7 @@ Module storage_methods
         all_textboxes.Add(main.txt_mission_folder)
         all_textboxes.Add(main.txt_whitelist_kick_text)
         all_textboxes.Add(main.txt_backup_revisions)
+        all_textboxes.Add(main.txt_mods)
 
         If skip_password = False Then
             all_textboxes.Add(main.txt_rcon_password)
@@ -34,6 +35,7 @@ Module storage_methods
         all_checkboxes.Add(main.chk_show_password)
         all_checkboxes.Add(main.chk_whitelist_enabled)
         all_checkboxes.Add(main.chk_backup_on_restart)
+        all_checkboxes.Add(main.chk_dzsalmod)
 
         Return all_checkboxes
     End Function

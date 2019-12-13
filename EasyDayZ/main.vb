@@ -1,5 +1,5 @@
 ﻿' EasyDayZ - Tool for managing a DayZ SA server by battleye
-' Uses then BattleNET (v1.3.4) Library 
+' Uses the BattleNET (v1.3.4) Library 
 ' EasyDayZ is not affiliated with or authorized by Bohemia Interactive
 
 Imports System.Collections.Concurrent
@@ -705,7 +705,7 @@ Public Class main
         End If
 
         If Not check_server_is_running() Then
-            start_server(txt_server_folder.Text, txt_battleye_folder.Text, txt_port.Text)
+            start_server(txt_server_folder.Text, txt_battleye_folder.Text, txt_port.Text, txt_mods.Text)
             timer_watchdog.Interval = 10000
         End If
 
@@ -853,6 +853,10 @@ Public Class main
 
     Private Sub data_bans_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles data_bans.CellEndEdit
         save_bans()
+    End Sub
+
+    Private Sub btn_save_startup_parameter_Click(sender As Object, e As EventArgs) Handles btn_save_startup_parameter.Click
+        save_settings()
     End Sub
 End Class
 
