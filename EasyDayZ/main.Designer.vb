@@ -29,6 +29,10 @@ Partial Class main
         Me.btn_commandline_send = New System.Windows.Forms.Button()
         Me.tab_commands = New System.Windows.Forms.TabControl()
         Me.tab_server = New System.Windows.Forms.TabPage()
+        Me.grp_mods = New System.Windows.Forms.GroupBox()
+        Me.chk_dzsalmod = New System.Windows.Forms.CheckBox()
+        Me.btn_save_startup_parameter = New System.Windows.Forms.Button()
+        Me.txt_mods = New System.Windows.Forms.TextBox()
         Me.grp_backup = New System.Windows.Forms.GroupBox()
         Me.chk_backup_on_restart = New System.Windows.Forms.CheckBox()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -120,12 +124,9 @@ Partial Class main
         Me.rtxt_log = New System.Windows.Forms.RichTextBox()
         Me.timer_reconnect = New System.Windows.Forms.Timer(Me.components)
         Me.chk_autoscroll = New System.Windows.Forms.CheckBox()
-        Me.grp_mods = New System.Windows.Forms.GroupBox()
-        Me.txt_mods = New System.Windows.Forms.TextBox()
-        Me.btn_save_startup_parameter = New System.Windows.Forms.Button()
-        Me.chk_dzsalmod = New System.Windows.Forms.CheckBox()
         Me.tab_commands.SuspendLayout()
         Me.tab_server.SuspendLayout()
+        Me.grp_mods.SuspendLayout()
         Me.grp_backup.SuspendLayout()
         Me.grp_watchdog.SuspendLayout()
         Me.grp_server_path.SuspendLayout()
@@ -141,7 +142,6 @@ Partial Class main
         CType(Me.data_bans, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tab_players_history.SuspendLayout()
         CType(Me.data_player_history, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grp_mods.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label3
@@ -199,6 +199,44 @@ Partial Class main
         Me.tab_server.TabIndex = 0
         Me.tab_server.Text = "Server"
         Me.tab_server.UseVisualStyleBackColor = True
+        '
+        'grp_mods
+        '
+        Me.grp_mods.Controls.Add(Me.chk_dzsalmod)
+        Me.grp_mods.Controls.Add(Me.btn_save_startup_parameter)
+        Me.grp_mods.Controls.Add(Me.txt_mods)
+        Me.grp_mods.Location = New System.Drawing.Point(9, 191)
+        Me.grp_mods.Name = "grp_mods"
+        Me.grp_mods.Size = New System.Drawing.Size(909, 69)
+        Me.grp_mods.TabIndex = 41
+        Me.grp_mods.TabStop = False
+        Me.grp_mods.Text = "Mods seperated by ; (Example: @mod1;@mod2;@mod3)"
+        '
+        'chk_dzsalmod
+        '
+        Me.chk_dzsalmod.AutoSize = True
+        Me.chk_dzsalmod.Location = New System.Drawing.Point(6, 45)
+        Me.chk_dzsalmod.Name = "chk_dzsalmod"
+        Me.chk_dzsalmod.Size = New System.Drawing.Size(307, 17)
+        Me.chk_dzsalmod.TabIndex = 2
+        Me.chk_dzsalmod.Text = "Use DZSALModServer.exe instead of DayZServer_x64.exe"
+        Me.chk_dzsalmod.UseVisualStyleBackColor = True
+        '
+        'btn_save_startup_parameter
+        '
+        Me.btn_save_startup_parameter.Location = New System.Drawing.Point(828, 17)
+        Me.btn_save_startup_parameter.Name = "btn_save_startup_parameter"
+        Me.btn_save_startup_parameter.Size = New System.Drawing.Size(75, 23)
+        Me.btn_save_startup_parameter.TabIndex = 1
+        Me.btn_save_startup_parameter.Text = "save"
+        Me.btn_save_startup_parameter.UseVisualStyleBackColor = True
+        '
+        'txt_mods
+        '
+        Me.txt_mods.Location = New System.Drawing.Point(6, 19)
+        Me.txt_mods.Name = "txt_mods"
+        Me.txt_mods.Size = New System.Drawing.Size(816, 20)
+        Me.txt_mods.TabIndex = 0
         '
         'grp_backup
         '
@@ -537,7 +575,7 @@ Partial Class main
         Me.tab_players.Location = New System.Drawing.Point(4, 22)
         Me.tab_players.Name = "tab_players"
         Me.tab_players.Padding = New System.Windows.Forms.Padding(3)
-        Me.tab_players.Size = New System.Drawing.Size(936, 251)
+        Me.tab_players.Size = New System.Drawing.Size(936, 267)
         Me.tab_players.TabIndex = 4
         Me.tab_players.Text = "Players"
         Me.tab_players.UseVisualStyleBackColor = True
@@ -614,7 +652,7 @@ Partial Class main
         Me.tab_schedule.Location = New System.Drawing.Point(4, 22)
         Me.tab_schedule.Name = "tab_schedule"
         Me.tab_schedule.Padding = New System.Windows.Forms.Padding(3)
-        Me.tab_schedule.Size = New System.Drawing.Size(936, 251)
+        Me.tab_schedule.Size = New System.Drawing.Size(936, 267)
         Me.tab_schedule.TabIndex = 2
         Me.tab_schedule.Text = "Schedule"
         Me.tab_schedule.UseVisualStyleBackColor = True
@@ -821,7 +859,7 @@ Partial Class main
         Me.tab_whitelist.Location = New System.Drawing.Point(4, 22)
         Me.tab_whitelist.Name = "tab_whitelist"
         Me.tab_whitelist.Padding = New System.Windows.Forms.Padding(3)
-        Me.tab_whitelist.Size = New System.Drawing.Size(936, 251)
+        Me.tab_whitelist.Size = New System.Drawing.Size(936, 267)
         Me.tab_whitelist.TabIndex = 1
         Me.tab_whitelist.Text = "Whitelist"
         Me.tab_whitelist.UseVisualStyleBackColor = True
@@ -899,7 +937,7 @@ Partial Class main
         Me.tab_bans.Location = New System.Drawing.Point(4, 22)
         Me.tab_bans.Name = "tab_bans"
         Me.tab_bans.Padding = New System.Windows.Forms.Padding(3)
-        Me.tab_bans.Size = New System.Drawing.Size(936, 251)
+        Me.tab_bans.Size = New System.Drawing.Size(936, 267)
         Me.tab_bans.TabIndex = 5
         Me.tab_bans.Text = "Bans"
         Me.tab_bans.UseVisualStyleBackColor = True
@@ -954,7 +992,7 @@ Partial Class main
         Me.tab_players_history.Location = New System.Drawing.Point(4, 22)
         Me.tab_players_history.Name = "tab_players_history"
         Me.tab_players_history.Padding = New System.Windows.Forms.Padding(3)
-        Me.tab_players_history.Size = New System.Drawing.Size(936, 251)
+        Me.tab_players_history.Size = New System.Drawing.Size(936, 267)
         Me.tab_players_history.TabIndex = 6
         Me.tab_players_history.Text = "All joined players"
         Me.tab_players_history.UseVisualStyleBackColor = True
@@ -1036,44 +1074,6 @@ Partial Class main
         Me.chk_autoscroll.Text = "Automatic scroll log"
         Me.chk_autoscroll.UseVisualStyleBackColor = True
         '
-        'grp_mods
-        '
-        Me.grp_mods.Controls.Add(Me.chk_dzsalmod)
-        Me.grp_mods.Controls.Add(Me.btn_save_startup_parameter)
-        Me.grp_mods.Controls.Add(Me.txt_mods)
-        Me.grp_mods.Location = New System.Drawing.Point(9, 191)
-        Me.grp_mods.Name = "grp_mods"
-        Me.grp_mods.Size = New System.Drawing.Size(909, 69)
-        Me.grp_mods.TabIndex = 41
-        Me.grp_mods.TabStop = False
-        Me.grp_mods.Text = "Mods seperated by ; (Example: @mod1;@mod2;@mod3)"
-        '
-        'txt_mods
-        '
-        Me.txt_mods.Location = New System.Drawing.Point(6, 19)
-        Me.txt_mods.Name = "txt_mods"
-        Me.txt_mods.Size = New System.Drawing.Size(816, 20)
-        Me.txt_mods.TabIndex = 0
-        '
-        'btn_save_startup_parameter
-        '
-        Me.btn_save_startup_parameter.Location = New System.Drawing.Point(828, 17)
-        Me.btn_save_startup_parameter.Name = "btn_save_startup_parameter"
-        Me.btn_save_startup_parameter.Size = New System.Drawing.Size(75, 23)
-        Me.btn_save_startup_parameter.TabIndex = 1
-        Me.btn_save_startup_parameter.Text = "save"
-        Me.btn_save_startup_parameter.UseVisualStyleBackColor = True
-        '
-        'chk_dzsalmod
-        '
-        Me.chk_dzsalmod.AutoSize = True
-        Me.chk_dzsalmod.Location = New System.Drawing.Point(6, 45)
-        Me.chk_dzsalmod.Name = "chk_dzsalmod"
-        Me.chk_dzsalmod.Size = New System.Drawing.Size(307, 17)
-        Me.chk_dzsalmod.TabIndex = 2
-        Me.chk_dzsalmod.Text = "Use DZSALModServer.exe instead of DayZServer_x64.exe"
-        Me.chk_dzsalmod.UseVisualStyleBackColor = True
-        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1092,6 +1092,8 @@ Partial Class main
         Me.Text = "EasyDayZ"
         Me.tab_commands.ResumeLayout(False)
         Me.tab_server.ResumeLayout(False)
+        Me.grp_mods.ResumeLayout(False)
+        Me.grp_mods.PerformLayout()
         Me.grp_backup.ResumeLayout(False)
         Me.grp_backup.PerformLayout()
         Me.grp_watchdog.ResumeLayout(False)
@@ -1115,8 +1117,6 @@ Partial Class main
         CType(Me.data_bans, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tab_players_history.ResumeLayout(False)
         CType(Me.data_player_history, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grp_mods.ResumeLayout(False)
-        Me.grp_mods.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

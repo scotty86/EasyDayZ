@@ -124,4 +124,17 @@ Module help_methods
             End If
         Next
     End Sub
+
+    Public Function cell_to_string(ByVal my_in As DataGridViewTextBoxCell) As String
+        If my_in.Value Is Nothing Then
+            Return ""
+        Else
+            Return my_in.Value.ToString()
+        End If
+    End Function
+
+    Public Function get_application_version() As String
+        Dim my_version As String = My.Application.Info.Version.ToString
+        Return Left(my_version, my_version.LastIndexOf("."))
+    End Function
 End Module

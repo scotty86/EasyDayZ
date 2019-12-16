@@ -260,7 +260,7 @@ Public Class main
                 ' players on server
                 For Each row As DataGridViewRow In data_players.Rows
                     If row.IsNewRow Then Exit For
-                    If row.Cells(2).Value.ToString() = guid Then
+                    If cell_to_string(row.Cells(2)) = guid Then
                         player_found = True
                         Exit For
                     End If
@@ -270,8 +270,8 @@ Public Class main
                 If guid <> "-" Then
                     For Each row As DataGridViewRow In data_player_history.Rows
                         If row.IsNewRow Then Exit For
-                        If row.Cells(1).Value.ToString() = guid Then
-                            UpdateRowDatagridview(data_player_history, row.Index, New String() {clear_playername(cols(4)), guid, get_sortable_date(), row.Cells(3).Value.ToString()})
+                        If cell_to_string(row.Cells(1)) = guid Then
+                            UpdateRowDatagridview(data_player_history, row.Index, New String() {clear_playername(cols(4)), guid, get_sortable_date(), cell_to_string(row.Cells(3))})
                             player_history_found = True
                             Exit For
                         End If
@@ -302,15 +302,15 @@ Public Class main
             If row.IsNewRow Then Exit For
             player_found = False
             For Each guid In list_guid_on_server
-                If row.Cells(2).Value.ToString() = guid Then
+                If cell_to_string(row.Cells(2)) = guid Then
                     player_found = True
                     Exit For
                 End If
             Next
 
             If Not player_found Then
-                player_id = Integer.Parse(row.Cells(0).Value.ToString())
-                If whitelist_ban_seconde_chance_no_guid.ContainsKey(player_id) Then whitelist_ban_seconde_chance_no_guid.TryRemove(player_id, row.Cells(1).Value.ToString())
+                player_id = Integer.Parse(cell_to_string(row.Cells(0)))
+                If whitelist_ban_seconde_chance_no_guid.ContainsKey(player_id) Then whitelist_ban_seconde_chance_no_guid.TryRemove(player_id, cell_to_string(row.Cells(1)))
                 RemoveRowDatagridview(data_players, row)
             End If
 
@@ -335,7 +335,7 @@ Public Class main
         If chk_whitelist_enabled.Checked = False Then Exit Sub
         For Each row As DataGridViewRow In data_whitelist.Rows
             If row.IsNewRow Then Exit For
-            If row.Cells(0).Value.ToString() = guid Then
+            If cell_to_string(row.Cells(0)) = guid Then
                 If DEBUG_MODE Then DoLog("DEBUG: Player (" & playername & ") is on whitelist.")
                 Exit Sub
             End If
@@ -348,7 +348,7 @@ Public Class main
     Public Sub BattlEyeCheckBan(ByVal guid As String, ByVal playername As String)
         For Each row As DataGridViewRow In data_bans.Rows
             If row.IsNewRow Then Exit For
-            If row.Cells(0).Value.ToString() = guid Then
+            If cell_to_string(row.Cells(0)) = guid Then
                 DoLog("Player (" & playername & ") is banned and will be kicked.")
                 BattlEyeKickPlayerByName(playername, "You are banned!")
                 Exit Sub
@@ -441,6 +441,7 @@ Public Class main
     End Sub
 
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Text = Me.Text & " (v" & get_application_version() & ")"
         load_all()
     End Sub
 
@@ -467,9 +468,9 @@ Public Class main
         If BattlEyeIsConnected() And Math.Abs(schedule_current_tick - schedule_last_tick) > 0 Then
             For Each row As DataGridViewRow In data_schedule.Rows
                 If row.IsNewRow Then Exit For
-                If InStr(row.Cells(0).Value.ToString(), day_of_week_to_short_string(Now.DayOfWeek)) > 0 _
-                    And row.Cells(1).Value.ToString() = get_24h_time() Then
-                    Select Case LCase(row.Cells(2).Value.ToString())
+                If InStr(cell_to_string(row.Cells(0)), day_of_week_to_short_string(Now.DayOfWeek)) > 0 _
+                    And cell_to_string(row.Cells(1)) = get_24h_time() Then
+                    Select Case LCase(cell_to_string(row.Cells(2)))
                         Case "#restart"
                             timer_watchdog.Enabled = False
                             b.SendCommand("#shutdown")
@@ -491,7 +492,7 @@ Public Class main
                             End If
                             If Not btn_watchdog_start.Enabled Then timer_watchdog.Enabled = True
                         Case Else
-                            b.SendCommand(row.Cells(2).Value.ToString())
+                            b.SendCommand(cell_to_string(row.Cells(2)))
                     End Select
                 End If
             Next
@@ -535,12 +536,12 @@ Public Class main
 
     Private Sub data_schedule_SelectionChanged(sender As Object, e As EventArgs) Handles data_schedule.SelectionChanged
         If data_schedule.Rows.Count > 0 AndAlso data_schedule.CurrentRow.Selected = True Then
-            txt_schedule_command.Text = data_schedule.CurrentRow.Cells(2).Value.ToString()
-            datetime_schedule_time.Value = DateTime.ParseExact(data_schedule.CurrentRow.Cells(1).Value.ToString(), "HH:mm:ss", Nothing)
+            txt_schedule_command.Text = cell_to_string(data_schedule.CurrentRow.Cells(2))
+            datetime_schedule_time.Value = DateTime.ParseExact(cell_to_string(data_schedule.CurrentRow.Cells(1)), "HH:mm:ss", Nothing)
 
             For Each curr_control As Control In grp_schedule_day.Controls
                 If curr_control.GetType Is GetType(CheckBox) Then
-                    If InStr(data_schedule.CurrentRow.Cells(0).Value.ToString(), Mid(curr_control.Name, Len(curr_control.Name) - 1)) > 0 Then
+                    If InStr(cell_to_string(data_schedule.CurrentRow.Cells(0)), Mid(curr_control.Name, Len(curr_control.Name) - 1)) > 0 Then
                         CType(curr_control, CheckBox).Checked = True
                     Else
                         CType(curr_control, CheckBox).Checked = False
@@ -727,7 +728,7 @@ Public Class main
     Private Sub add_player_to_whitelist(ByVal guid As String, ByVal playername As String)
         For Each row As DataGridViewRow In data_whitelist.Rows
             If row.IsNewRow Then Exit For
-            If row.Cells(0).Value.ToString() = guid Then
+            If cell_to_string(row.Cells(0)) = guid Then
                 MsgBox("This GUID is already whitelisted.", vbInformation)
                 Exit Sub
             End If
@@ -740,7 +741,7 @@ Public Class main
     Private Sub add_player_to_banlist(ByVal guid As String, ByVal playername As String, ByVal reason As String)
         For Each row As DataGridViewRow In data_bans.Rows
             If row.IsNewRow Then Exit For
-            If row.Cells(0).Value.ToString() = guid Then
+            If cell_to_string(row.Cells(0)) = guid Then
                 MsgBox("This GUID is already banned.", vbInformation)
                 Exit Sub
             End If
@@ -754,7 +755,7 @@ Public Class main
     Private Sub remove_player_from_banlist(ByVal guid As String)
         For Each row As DataGridViewRow In data_bans.Rows
             If row.IsNewRow Then Exit For
-            If row.Cells(0).Value.ToString() = guid Then
+            If cell_to_string(row.Cells(0)) = guid Then
                 RemoveRowDatagridview(data_bans, row)
                 save_bans()
                 MsgBox("The GUID has been unbanned.", vbInformation)
@@ -792,10 +793,10 @@ Public Class main
             Dim menu_item_send_message As New MenuItem("send message")
             Dim menu_item_ban As New MenuItem("ban")
 
-            AddHandler menu_item_kick.Click, Sub() BattlEyeKickPlayerByName(data_players.Rows(row_id).Cells(1).Value.ToString)
-            AddHandler menu_item_whitelist.Click, Sub() add_player_to_whitelist(data_players.Rows(row_id).Cells(2).Value.ToString, data_players.Rows(row_id).Cells(1).Value.ToString)
-            AddHandler menu_item_send_message.Click, Sub() context_menu_send_message_to_player(data_players.Rows(row_id).Cells(0).Value.ToString, data_players.Rows(row_id).Cells(1).Value.ToString)
-            AddHandler menu_item_ban.Click, Sub() context_menu_ban_player(data_players.Rows(row_id).Cells(2).Value.ToString, data_players.Rows(row_id).Cells(1).Value.ToString)
+            AddHandler menu_item_kick.Click, Sub() BattlEyeKickPlayerByName(cell_to_string(data_players.Rows(row_id).Cells(1)))
+            AddHandler menu_item_whitelist.Click, Sub() add_player_to_whitelist(cell_to_string(data_players.Rows(row_id).Cells(2)), cell_to_string(data_players.Rows(row_id).Cells(1)))
+            AddHandler menu_item_send_message.Click, Sub() context_menu_send_message_to_player(cell_to_string(data_players.Rows(row_id).Cells(0)), cell_to_string(data_players.Rows(row_id).Cells(1)))
+            AddHandler menu_item_ban.Click, Sub() context_menu_ban_player(cell_to_string(data_players.Rows(row_id).Cells(2)), cell_to_string(data_players.Rows(row_id).Cells(1)))
 
             If row_id >= 0 Then
                 m.MenuItems.Add(menu_item_kick)
@@ -817,8 +818,8 @@ Public Class main
             Dim menu_item_whitelist As New MenuItem("whitelist")
             Dim menu_item_ban As New MenuItem("ban")
 
-            AddHandler menu_item_whitelist.Click, Sub() add_player_to_whitelist(data_player_history.Rows(row_id).Cells(1).Value.ToString, data_player_history.Rows(row_id).Cells(0).Value.ToString)
-            AddHandler menu_item_ban.Click, Sub() context_menu_ban_player(data_player_history.Rows(row_id).Cells(1).Value.ToString, data_player_history.Rows(row_id).Cells(0).Value.ToString)
+            AddHandler menu_item_whitelist.Click, Sub() add_player_to_whitelist(cell_to_string(data_player_history.Rows(row_id).Cells(1)), cell_to_string(data_player_history.Rows(row_id).Cells(0)))
+            AddHandler menu_item_ban.Click, Sub() context_menu_ban_player(cell_to_string(data_player_history.Rows(row_id).Cells(1)), cell_to_string(data_player_history.Rows(row_id).Cells(0)))
 
             If row_id >= 0 Then
                 m.MenuItems.Add(menu_item_whitelist)
@@ -836,7 +837,7 @@ Public Class main
             Dim row_id As Integer = data_bans.HitTest(e.X, e.Y).RowIndex
             Dim menu_item_unban As New MenuItem("unban")
 
-            AddHandler menu_item_unban.Click, Sub() remove_player_from_banlist(data_bans.Rows(row_id).Cells(0).Value.ToString)
+            AddHandler menu_item_unban.Click, Sub() remove_player_from_banlist(cell_to_string(data_bans.Rows(row_id).Cells(0)))
 
             If row_id >= 0 AndAlso Not data_bans.Rows(row_id).IsNewRow Then
                 m.MenuItems.Add(menu_item_unban)

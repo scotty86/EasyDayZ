@@ -67,7 +67,7 @@ Module storage_methods
                     curr_line &= vbTab
                 End If
                 If Not cell.Value Is Nothing Then
-                    curr_line &= cell.Value.ToString().Replace(vbTab, " ")
+                    curr_line &= cell_to_string(cell).Replace(vbTab, " ")
                 Else
                     curr_line &= "-"
                 End If
@@ -195,10 +195,11 @@ Module storage_methods
 
         For Each row As DataGridViewRow In main.data_whitelist.Rows
             If row.IsNewRow Then Exit For
-            If Len(row.Cells(0).Value.ToString()) < 1 Then Continue For
+            If Len(cell_to_string(row.Cells(0))) < 1 Then Continue For
 
             If Len(output) > 0 Then output &= vbCrLf
-            output &= row.Cells(0).Value.ToString() & " " & row.Cells(1).Value.ToString()
+
+            output &= cell_to_string(row.Cells(0)) & " " & cell_to_string(row.Cells(1))
         Next
 
         File.WriteAllText(whitelist_file_path & ".tmp", output)
@@ -238,10 +239,10 @@ Module storage_methods
 
         For Each row As DataGridViewRow In main.data_schedule.Rows
             If row.IsNewRow Then Exit For
-            If Len(row.Cells(0).Value.ToString()) < 1 Then Continue For
+            If Len(cell_to_string(row.Cells(0))) < 1 Then Continue For
 
             If Len(output) > 0 Then output &= vbCrLf
-            output &= row.Cells(0).Value.ToString() & " " & row.Cells(1).Value.ToString() & " " & row.Cells(2).Value.ToString()
+            output &= cell_to_string(row.Cells(0)) & " " & cell_to_string(row.Cells(1)) & " " & cell_to_string(row.Cells(2))
         Next
 
         File.WriteAllText(schedule_file_path & ".tmp", output)
