@@ -1,7 +1,7 @@
 # EasyDayz
 ## EasyDayz - Tool to manage DayZ SA Server
 
-I wrote this tool, because BEC didn't work properly with DayZ SA (for me). To run EasyDayZ, you need the .NET Framework v4.6 installed. It was build with Microsoft Visual Studio Community 2017.
+I wrote this tool, because BEC didn't work properly with DayZ SA (for me). To run EasyDayZ, you need the .NET Framework v4.6 installed. It was build with Microsoft Visual Studio Community 2019.
 
 **EasyDayZ is in a very early stage and there will be bugs, use it at your own risk. I do not take any responsibility for any damaged caused by EasyDayZ!**
 
@@ -13,7 +13,9 @@ I wrote this tool, because BEC didn't work properly with DayZ SA (for me). To ru
 - a list of all players, that have been connected to your server
 - execute battleye commands
 - log textbox
-- a watchdog to automatically restart your server after crash 
+- a watchdog to automatically restart your server after crash
+- basic mod support
+- DZSA Launcher support
 
 ### Planned features:
 - welcome message
