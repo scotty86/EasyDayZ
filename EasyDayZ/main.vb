@@ -114,7 +114,7 @@ Public Class main
     ' Player will be listed as joined before their guid gets checked/received
     ' workaround: If no guid has been send yet, retry after 2 sec
     Private Sub whitelist_second_chance_thread()
-        Thread.Sleep(2000)
+        Thread.Sleep(10000)
         DoLog("whitelist_second_chance_thread finished waiting.")
         SyncLock whitelist_second_chance_lock
             whitelist_second_chance_thread_started = False
@@ -149,6 +149,7 @@ Public Class main
         Dim response_id As Integer = args.Id
         Dim response_text As String = args.Message
 
+
         If responses_dict IsNot Nothing Then
             ' add new message to dictionary
             responses_dict.TryAdd(response_id, response_text)
@@ -162,8 +163,11 @@ Public Class main
                 DoLog(response_text)
                 If response_text.StartsWith("Player #") And response_text.EndsWith("connected") Then
                     BattlEyeUpdatePlayer()
+                Else
+                    If DEBUG_MODE Then DoLog("DEBUG - Message - ID:" & response_id & " // " & "Message:" & response_text)
+                    chat_commands_find(response_text, Me)
+                    End If
                 End If
-            End If
         End If
     End Sub
 

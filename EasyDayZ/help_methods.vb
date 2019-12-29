@@ -137,4 +137,17 @@ Module help_methods
         Dim my_version As String = My.Application.Info.Version.ToString
         Return Left(my_version, my_version.LastIndexOf("."))
     End Function
+
+
+    Public Function get_player_id_by_name(ByVal player_name As String, ByRef player_grid As DataGridView) As Integer
+        For Each row As DataGridViewRow In player_grid.Rows
+            If row.IsNewRow Then Exit For
+            If cell_to_string(row.Cells(1)) = player_name Then
+                Dim cell_val As String = cell_to_string(row.Cells(0))
+                If Len(cell_val) < 1 Then Return -1
+                Return Convert.ToInt32(cell_val)
+            End If
+        Next
+        Return -1
+    End Function
 End Module
